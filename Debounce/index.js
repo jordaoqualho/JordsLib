@@ -1,5 +1,21 @@
-import { debounce } from "functions/index";
 import React, { useCallback, useEffect, useState } from "react";
+
+const debounce = (func, wait, immediate) => {
+  var timeout;
+
+  return (...args) => {
+    var context = this;
+    var later = () => {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
 
 const DebounceTest = () => {
   const [input, setInput] = useState("");
